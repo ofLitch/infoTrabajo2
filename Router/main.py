@@ -7,7 +7,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def main():
     i = int(sys.argv[1])
-    links = sys.argv[2].split(',')
 
     with open(os.path.join(BASE_DIR, 'server.json'), 'r') as f:
         server_config = json.load(f)

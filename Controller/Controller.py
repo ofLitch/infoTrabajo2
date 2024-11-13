@@ -5,40 +5,43 @@ import json
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Crear un socket TCP/IP
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Cargar el contenido del archivo routes.json
+with open(os.path.join(BASE_DIR, 'routes.json'), 'r') as f:
+    route_info = json.load(f)
 
-# Enlazar el socket a la dirección y puerto
+# Crear el socket del servidor
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('localhost', 60000))
 server_socket.listen(5)
 
-# Envolver el socket con SSL
+# Configurar SSL
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 context.load_cert_chain(certfile=os.path.join(BASE_DIR, "../certificate/server.crt"), keyfile=os.path.join(BASE_DIR, "../certificate/server.key"))
-#print(ssl._create_unverified_context())
 print("Servidor escuchando en el puerto 60000...")
 
-# Aceptar conexiones y manejarlas
+def send_large_message(socket, message):
+    # Convertir el mensaje a bytes
+    message_bytes = message.encode('utf-8')
+    message_length = len(message_bytes)
+    
+    # Enviar la longitud del mensaje primero
+    socket.sendall(message_length.to_bytes(4, byteorder='big'))
+
+    # Enviar el mensaje en fragmentos de tamaño 1024
+    for i in range(0, message_length, 1024):
+        socket.sendall(message_bytes[i:i+1024])
+
 while True:
     client_socket, addr = server_socket.accept()
     print(f"Conexión desde {addr}")
     try:
-        # Asegurar el socket
         secure_socket = context.wrap_socket(client_socket, server_side=True)
-
-        # Recibir datos del router
         data = secure_socket.recv(1024).decode('utf-8')
         print(f"Recibido: {data}")
 
-        # Preparar y enviar una respuesta (en este caso, una ruta ficticia)
-        route_info = {
-            "routes": [
-                {"src": "A", "dst": "B", "path": ["A", "C", "B"], "cost": 10},
-                {"src": "A", "dst": "D", "path": ["A", "D"], "cost": 5}
-            ]
-        }
+        # Enviar el contenido de routes.json a cada cliente que se conecte
         response = json.dumps(route_info)
-        secure_socket.sendall(response.encode('utf-8'))
+        send_large_message(secure_socket, response)
     except ssl.SSLError as ssl_err:
         print(f"Error SSL al conectar: {ssl_err}")
     except Exception as e:

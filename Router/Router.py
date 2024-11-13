@@ -6,14 +6,14 @@ import json
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Router:
-    def __init__(self, router_id, router_ip, router_port, server_ip, server_port, cafile, links):
+    def __init__(self, router_id, router_ip, router_port, server_ip, server_port, cafile):
         self.router_id = router_id
         self.router_ip = router_ip
         self.router_port = router_port
         self.server_ip = server_ip
         self.server_port = server_port
         self.cafile = cafile
-        self.links = links
+        self.links = []
 
     def connect_to_controller(self):
         # Crear un socket TCP/IP
@@ -32,10 +32,19 @@ class Router:
             # Enviar y recibir datos
             message = f"Hello, Secure Server! Router: {self.router_id}"
             secure_socket.send(message.encode('utf-8'))
-            data = secure_socket.recv(1024)
+
+            # Recibir la longitud del mensaje primero
+            message_length = int.from_bytes(secure_socket.recv(4), byteorder='big')
+            data = b''
+            while len(data) < message_length:
+                fragment = secure_socket.recv(1024)
+                if not fragment:
+                    break
+                data += fragment
+
             print(f"Received route: {data.decode('utf-8')}")
 
-            # Almacenar datos de la ruta
+            # Filtrar y almacenar datos de la ruta
             self.store_route(json.loads(data.decode('utf-8')))
         except ssl.SSLError as ssl_err:
             print(f"Error SSL al conectar: {ssl_err}")
@@ -44,10 +53,12 @@ class Router:
         finally:
             secure_socket.close()
 
-    def store_route(self, route):
-        self.routes = route
+    def store_route(self, route_info):
+        routes = route_info['routes']
+        # Filtrar enlaces relevantes para este router
+        self.links = [route for route in routes if route['src'] == str(self.router_id) == str(self.router_id)]
         with open(os.path.join(BASE_DIR, f'router_{self.router_id}_routes.json'), 'w') as json_file:
-            json.dump(self.routes, json_file)
+            json.dump(self.links, json_file)
             print(f"Routes stored in router_{self.router_id}_routes.json")
 
     def evaluate_performance(self):
