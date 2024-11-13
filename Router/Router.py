@@ -1,16 +1,19 @@
 import socket
 import ssl
+import os
 import json
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 class Router:
-    def __init__(self, router_id, router_ip, router_port, server_ip, server_port, cafile):
+    def __init__(self, router_id, router_ip, router_port, server_ip, server_port, cafile, links):
         self.router_id = router_id
         self.router_ip = router_ip
         self.router_port = router_port
         self.server_ip = server_ip
         self.server_port = server_port
         self.cafile = cafile
-        self.routes = {}
+        self.links = links
 
     def connect_to_controller(self):
         # Crear un socket TCP/IP
@@ -43,7 +46,7 @@ class Router:
 
     def store_route(self, route):
         self.routes = route
-        with open(f'router_{self.router_id}_routes.json', 'w') as json_file:
+        with open(os.path.join(BASE_DIR, f'router_{self.router_id}_routes.json'), 'w') as json_file:
             json.dump(self.routes, json_file)
             print(f"Routes stored in router_{self.router_id}_routes.json")
 

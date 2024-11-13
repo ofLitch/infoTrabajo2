@@ -1,6 +1,9 @@
 import socket
 import ssl
+import os
 import json
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Crear un socket TCP/IP
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -11,7 +14,7 @@ server_socket.listen(5)
 
 # Envolver el socket con SSL
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-context.load_cert_chain(certfile="../certificate/server.crt", keyfile="../certificate/server.key")
+context.load_cert_chain(certfile=os.path.join(BASE_DIR, "../certificate/server.crt"), keyfile=os.path.join(BASE_DIR, "../certificate/server.key"))
 #print(ssl._create_unverified_context())
 print("Servidor escuchando en el puerto 60000...")
 

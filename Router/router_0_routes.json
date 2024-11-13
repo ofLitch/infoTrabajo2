@@ -1,0 +1,1 @@
+{"routes": [{"src": "A", "dst": "B", "path": ["A", "C", "B"], "cost": 10}, {"src": "A", "dst": "D", "path": ["A", "D"], "cost": 5}]}
