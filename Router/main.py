@@ -22,8 +22,7 @@ def main():
                     router_port=60001 + i, 
                     server_ip=server_ip, 
                     server_port=server_port, 
-                    cafile=os.path.join(BASE_DIR, '../certificate/server.crt'),
-                    links=links
+                    cafile=os.path.join(BASE_DIR, '../certificate/server.crt')
                     ) 
     print(f"Router {i + 1} connecting to server {server_ip}:{server_port} from port {60001 + i}") 
     router.connect_to_controller()
