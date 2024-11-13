@@ -29,9 +29,16 @@ class Router:
             print(client_socket)
             print(f"Conectado al servidor {self.server_ip}:{self.server_port}")
 
-            # Enviar y recibir datos
-            message = f"Hello, Secure Server! Router: {self.router_id}"
-            secure_socket.send(message.encode('utf-8'))
+            # Crear un JSON con la IP, puerto e ID del router
+            router_info = {
+                "router_id": self.router_id,
+                "router_ip": self.router_ip,
+                "router_port": self.router_port
+            }
+            router_info_json = json.dumps(router_info)
+
+            # Enviar el JSON al servidor
+            secure_socket.send(router_info_json.encode('utf-8'))
 
             # Recibir la longitud del mensaje primero
             message_length = int.from_bytes(secure_socket.recv(4), byteorder='big')
@@ -56,7 +63,7 @@ class Router:
     def store_route(self, route_info):
         routes = route_info['routes']
         # Filtrar enlaces relevantes para este router
-        self.links = [route for route in routes if route['src'] == str(self.router_id) == str(self.router_id)]
+        self.links = [route for route in routes if route['src'] == str(self.router_id)]
         with open(os.path.join(BASE_DIR, f'router_{self.router_id}_routes.json'), 'w') as json_file:
             json.dump(self.links, json_file)
             print(f"Routes stored in router_{self.router_id}_routes.json")

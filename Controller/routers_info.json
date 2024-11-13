@@ -1,0 +1,57 @@
+{
+    "0": {
+        "router_id": 0,
+        "router_ip": "localhost",
+        "router_port": 60001
+    },
+    "1": {
+        "router_id": 1,
+        "router_ip": "localhost",
+        "router_port": 60002
+    },
+    "2": {
+        "router_id": 2,
+        "router_ip": "localhost",
+        "router_port": 60003
+    },
+    "3": {
+        "router_id": 3,
+        "router_ip": "localhost",
+        "router_port": 60004
+    },
+    "4": {
+        "router_id": 4,
+        "router_ip": "localhost",
+        "router_port": 60005
+    },
+    "5": {
+        "router_id": 5,
+        "router_ip": "localhost",
+        "router_port": 60006
+    },
+    "6": {
+        "router_id": 6,
+        "router_ip": "localhost",
+        "router_port": 60007
+    },
+    "7": {
+        "router_id": 7,
+        "router_ip": "localhost",
+        "router_port": 60008
+    },
+    "8": {
+        "router_id": 8,
+        "router_ip": "localhost",
+        "router_port": 60009
+    },
+    "9": {
+        "router_id": 9,
+        "router_ip": "localhost",
+        "router_port": 60010
+    },
+    "10": {
+        "router_id": 10,
+        "router_ip": "localhost",
+        "router_port": 60011
+    }
+}
