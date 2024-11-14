@@ -10,8 +10,22 @@ def main(host_id, router_ip, router_port):
     host = Host(host_id, host_ip, host_port, router_ip, router_port)
     print(host)
 
-    # Conectar al Router
-    host.connect_to_router()
+    while True:
+        print("\n--- MENÚ ---")
+        dest_host_id = int(input("Ingrese el ID del Host de destino: "))
+        dest_router_ip = "127.0.0.1" #input("Ingrese la IP del Router de destino: ")
+        msg = input("Ingrese el mensaje a enviar: ")
+
+        # Formar el mensaje a enviar
+        message = {
+            "src_host_id": host_id,
+            "dest_host_id": dest_host_id,
+            "dest_router_ip": dest_router_ip,
+            "msg": msg
+        }
+
+        # Conectar al Router y enviar el mensaje
+        host.connect_to_router(dest_router_ip, router_port, message)
 
 if __name__ == "__main__":
     # Obtener los parámetros del Host y el Router de los argumentos de la línea de comandos

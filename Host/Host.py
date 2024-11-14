@@ -12,7 +12,7 @@ class Host:
         self.router_ip = router_ip
         self.router_port = router_port
 
-    def connect_to_router(self):
+    def connect_to_router(self, dest_router_ip, dest_router_port, message):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.bind((self.host_ip, self.host_port))
 
@@ -20,16 +20,13 @@ class Host:
             client_socket.connect((self.router_ip, self.router_port))
             print(f"Conectado al router {self.router_ip}:{self.router_port}")
 
-            # Crear un JSON con la IP, puerto e ID del host
-            host_info = {
-                "host_id": self.host_id,
-                "host_ip": self.host_ip,
-                "host_port": self.host_port
-            }
-            host_info_json = json.dumps(host_info)
+            # Añadir información de destino del router al mensaje
+            message["dest_router_ip"] = dest_router_ip
+            message["dest_router_port"] = dest_router_port
+            message_json = json.dumps(message)
 
-            # Enviar el JSON al router
-            client_socket.send(host_info_json.encode('utf-8'))
+            # Enviar el mensaje al router
+            client_socket.send(message_json.encode('utf-8'))
 
             # Recibir la longitud del mensaje primero
             message_length = int.from_bytes(client_socket.recv(4), byteorder='big')
