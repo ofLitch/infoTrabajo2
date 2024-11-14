@@ -53,5 +53,75 @@
         "router_id": 10,
         "router_ip": "localhost",
         "router_port": 60011
+    },
+    "11": {
+        "router_id": 11,
+        "router_ip": "localhost",
+        "router_port": 60012
+    },
+    "12": {
+        "router_id": 12,
+        "router_ip": "localhost",
+        "router_port": 60013
+    },
+    "13": {
+        "router_id": 13,
+        "router_ip": "localhost",
+        "router_port": 60014
+    },
+    "14": {
+        "router_id": 14,
+        "router_ip": "localhost",
+        "router_port": 60015
+    },
+    "15": {
+        "router_id": 15,
+        "router_ip": "localhost",
+        "router_port": 60016
+    },
+    "16": {
+        "router_id": 16,
+        "router_ip": "localhost",
+        "router_port": 60017
+    },
+    "17": {
+        "router_id": 17,
+        "router_ip": "localhost",
+        "router_port": 60018
+    },
+    "18": {
+        "router_id": 18,
+        "router_ip": "localhost",
+        "router_port": 60019
+    },
+    "19": {
+        "router_id": 19,
+        "router_ip": "localhost",
+        "router_port": 60020
+    },
+    "20": {
+        "router_id": 20,
+        "router_ip": "localhost",
+        "router_port": 60021
+    },
+    "21": {
+        "router_id": 21,
+        "router_ip": "localhost",
+        "router_port": 60022
+    },
+    "22": {
+        "router_id": 22,
+        "router_ip": "localhost",
+        "router_port": 60023
+    },
+    "23": {
+        "router_id": 23,
+        "router_ip": "localhost",
+        "router_port": 60024
+    },
+    "1": {
+        "router_id": 1,
+        "router_ip": "localhost",
+        "router_port": 60002
     }
 }
