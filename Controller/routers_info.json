@@ -1,20 +1,29 @@
 {
-    "1": {
-        "router_id": 1,
-        "router_ip": "localhost",
-        "router_port": 60002,
-        "host": {
-            "src_host_id": 1,
-            "src_host_port": 50001
-        }
-    },
     "0": {
         "router_id": 0,
         "router_ip": "localhost",
         "router_port": 60001,
-        "host": {
-            "src_host_id": 0,
-            "src_host_port": 50000
+        "hosts": {
+            "0": {
+                "src_host_id": 0,
+                "src_host_port": 50000
+            },
+            "1": {
+                "src_host_id": 1,
+                "src_host_port": 50001
+            }
         }
+    },
+    "1": {
+        "router_id": 1,
+        "router_ip": "localhost",
+        "router_port": 60002,
+        "hosts": {}
+    },
+    "2": {
+        "router_id": 2,
+        "router_ip": "localhost",
+        "router_port": 60003,
+        "hosts": {}
     }
 }

@@ -1,4 +1,29 @@
 {
+    "0": {
+        "0": {
+            "source": "0",
+            "path": [
+                "0"
+            ],
+            "destination": "0"
+        },
+        "1": {
+            "source": "0",
+            "path": [
+                "0",
+                "1"
+            ],
+            "destination": "1"
+        },
+        "2": {
+            "source": "0",
+            "path": [
+                "0",
+                "2"
+            ],
+            "destination": "2"
+        }
+    },
     "1": {
         "1": {
             "source": "1",
@@ -14,19 +39,37 @@
                 "0"
             ],
             "destination": "0"
+        },
+        "2": {
+            "source": "1",
+            "path": [
+                "1",
+                "0",
+                "2"
+            ],
+            "destination": "2"
         }
     },
-    "0": {
-        "0": {
-            "source": "0",
+    "2": {
+        "2": {
+            "source": "2",
             "path": [
+                "2"
+            ],
+            "destination": "2"
+        },
+        "0": {
+            "source": "2",
+            "path": [
+                "2",
                 "0"
             ],
             "destination": "0"
         },
         "1": {
-            "source": "0",
+            "source": "2",
             "path": [
+                "2",
                 "0",
                 "1"
             ],

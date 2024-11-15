@@ -15,6 +15,7 @@ class Router:
         self.server_port = server_port
         self.cafile = cafile
         self.links = []
+        self.hosts = {}  # Diccionario para almacenar los hosts
 
         # Conectar al controlador una vez usando SSL
         self.connect_to_controller()
@@ -32,11 +33,12 @@ class Router:
             router_info = {
                 "router_id": self.router_id,
                 "router_ip": self.router_ip,
-                "router_port": self.router_port
+                "router_port": self.router_port,
+                "hosts": self.hosts  # Enviar todos los hosts acumulados
             }
 
             if host_info:
-                router_info['host'] = host_info
+                self.hosts[str(host_info['src_host_id'])] = host_info  # Añadir el nuevo host al diccionario
 
             router_info_json = json.dumps(router_info)
             secure_socket.send(router_info_json.encode('utf-8'))
