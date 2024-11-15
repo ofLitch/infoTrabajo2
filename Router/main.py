@@ -18,12 +18,12 @@ def main():
     router = Router(
                     router_id=i, 
                     router_ip=router_ip, 
-                    router_port=60001 + i, 
+                    router_port=40000+i, 
                     server_ip=server_ip, 
                     server_port=server_port, 
                     cafile=os.path.join(BASE_DIR, '../certificate/server.crt')
                     ) 
-    print(f"Router {i} connecting to server {server_ip}:{server_port} from port {60001 + i}") 
+    print(f"Router {i} connecting to server {server_ip}:{server_port}") 
     router.connect_to_controller()
     router.start_listening()
 

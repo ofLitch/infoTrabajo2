@@ -1,7 +1,20 @@
 import sys
+import json
+import os
 from Host import Host
 
-def main(host_id, router_ip, router_port):
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PORTS_FILE = os.path.join(BASE_DIR, '../Router/router_ports.json')  # Ajustar la ruta para la carpeta Router
+
+def read_router_port(router_id):
+    with open(PORTS_FILE, 'r') as f:
+        ports_info = json.load(f)
+    return ports_info[str(router_id)]
+
+def main(host_id, router_ip):
+    # Leer el puerto del router desde el archivo JSON
+    router_port = read_router_port(host_id)
+
     # Configuración del Host
     host_ip = "127.0.0.1"  # Cambia esto a la IP del host si es necesario
     host_port = 50000 + host_id  # Puerto del Host basado en el ID para evitar conflictos
@@ -13,7 +26,7 @@ def main(host_id, router_ip, router_port):
     while True:
         print("\n--- MENÚ ---")
         dest_host_id = int(input("Ingrese el ID del Host de destino: "))
-        dest_router_ip = "127.0.0.1" #input("Ingrese la IP del Router de destino: ")
+        dest_router_ip = "127.0.0.1"  # input("Ingrese la IP del Router de destino: ")
         msg = input("Ingrese el mensaje a enviar: ")
 
         # Formar el mensaje a enviar
@@ -32,6 +45,4 @@ if __name__ == "__main__":
     # Obtener los parámetros del Host y el Router de los argumentos de la línea de comandos
     host_id = int(sys.argv[1])
     router_ip = sys.argv[2]
-    router_port = int(sys.argv[3])
-
-    main(host_id, router_ip, router_port)
+    main(host_id, router_ip)

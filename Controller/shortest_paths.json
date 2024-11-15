@@ -1,19 +1,73 @@
 {
+    "2": {
+        "2": {
+            "source": "2",
+            "path": [
+                "2"
+            ],
+            "destination": "2",
+            "routers": {
+                "2": {
+                    "router_ip": "localhost",
+                    "router_port": 40002
+                }
+            }
+        },
+        "0": {
+            "source": "2",
+            "path": [
+                "2",
+                "0"
+            ],
+            "destination": "0",
+            "routers": {
+                "2": {
+                    "router_ip": "localhost",
+                    "router_port": 40002
+                },
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                }
+            }
+        },
+        "1": {
+            "source": "2",
+            "path": [
+                "2",
+                "0",
+                "1"
+            ],
+            "destination": "1",
+            "routers": {
+                "2": {
+                    "router_ip": "localhost",
+                    "router_port": 40002
+                },
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                },
+                "1": {
+                    "router_ip": "localhost",
+                    "router_port": 40001
+                }
+            }
+        }
+    },
     "0": {
         "0": {
             "source": "0",
             "path": [
                 "0"
             ],
-            "destination": "0"
-        },
-        "1": {
-            "source": "0",
-            "path": [
-                "0",
-                "1"
-            ],
-            "destination": "1"
+            "destination": "0",
+            "routers": {
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                }
+            }
         },
         "2": {
             "source": "0",
@@ -21,7 +75,35 @@
                 "0",
                 "2"
             ],
-            "destination": "2"
+            "destination": "2",
+            "routers": {
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                },
+                "2": {
+                    "router_ip": "localhost",
+                    "router_port": 40002
+                }
+            }
+        },
+        "1": {
+            "source": "0",
+            "path": [
+                "0",
+                "1"
+            ],
+            "destination": "1",
+            "routers": {
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                },
+                "1": {
+                    "router_ip": "localhost",
+                    "router_port": 40001
+                }
+            }
         }
     },
     "1": {
@@ -30,7 +112,13 @@
             "path": [
                 "1"
             ],
-            "destination": "1"
+            "destination": "1",
+            "routers": {
+                "1": {
+                    "router_ip": "localhost",
+                    "router_port": 40001
+                }
+            }
         },
         "0": {
             "source": "1",
@@ -38,7 +126,17 @@
                 "1",
                 "0"
             ],
-            "destination": "0"
+            "destination": "0",
+            "routers": {
+                "1": {
+                    "router_ip": "localhost",
+                    "router_port": 40001
+                },
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                }
+            }
         },
         "2": {
             "source": "1",
@@ -47,33 +145,21 @@
                 "0",
                 "2"
             ],
-            "destination": "2"
-        }
-    },
-    "2": {
-        "2": {
-            "source": "2",
-            "path": [
-                "2"
-            ],
-            "destination": "2"
-        },
-        "0": {
-            "source": "2",
-            "path": [
-                "2",
-                "0"
-            ],
-            "destination": "0"
-        },
-        "1": {
-            "source": "2",
-            "path": [
-                "2",
-                "0",
-                "1"
-            ],
-            "destination": "1"
+            "destination": "2",
+            "routers": {
+                "1": {
+                    "router_ip": "localhost",
+                    "router_port": 40001
+                },
+                "0": {
+                    "router_ip": "localhost",
+                    "router_port": 40000
+                },
+                "2": {
+                    "router_ip": "localhost",
+                    "router_port": 40002
+                }
+            }
         }
     }
 }
