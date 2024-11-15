@@ -1,1 +1,36 @@
-{}
+{
+    "1": {
+        "1": {
+            "source": "1",
+            "path": [
+                "1"
+            ],
+            "destination": "1"
+        },
+        "0": {
+            "source": "1",
+            "path": [
+                "1",
+                "0"
+            ],
+            "destination": "0"
+        }
+    },
+    "0": {
+        "0": {
+            "source": "0",
+            "path": [
+                "0"
+            ],
+            "destination": "0"
+        },
+        "1": {
+            "source": "0",
+            "path": [
+                "0",
+                "1"
+            ],
+            "destination": "1"
+        }
+    }
+}

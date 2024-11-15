@@ -106,7 +106,7 @@ def contador():
         count = 0
         while count<=15:
             count += 1
-            print(f"Contador: {count}")
+            #print(f"Contador: {count}")
             time.sleep(1)  # Pausa de 1 segundo para incrementar el contador
         compute_all_paths_dijkstra(network_nsf)
 
@@ -134,5 +134,3 @@ while True:
         print(f"Error SSL al conectar: {ssl_err}")
     except Exception as e:
         print(f"Error al conectar: {e}")
-    finally:
-        secure_socket.close()

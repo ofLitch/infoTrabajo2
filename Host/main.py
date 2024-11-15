@@ -19,6 +19,7 @@ def main(host_id, router_ip, router_port):
         # Formar el mensaje a enviar
         message = {
             "src_host_id": host_id,
+            "src_host_port": host_port,
             "dest_host_id": dest_host_id,
             "dest_router_ip": dest_router_ip,
             "msg": msg
