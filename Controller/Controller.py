@@ -96,7 +96,6 @@ def compute_all_paths_dijkstra(network):
         json.dump(paths_data, f, indent=4)
     print("Rutas más cortas con información de routers guardadas en shortest_paths.json")
 
-
 def visualize_path(path, network):
     pos = nx.spring_layout(network.graph)
     nx.draw(network.graph, pos, with_labels=True, node_color='lightblue', node_size=500, font_size=10, font_weight='bold')
@@ -124,11 +123,10 @@ for key, router_info in data.items():
 print("Calculando rutas más cortas entre routers...")
 compute_all_paths_dijkstra(network_nsf)
 
-
 def contador():
     while True:
         count = 0
-        while count<=15:
+        while count <= 15:
             count += 1
             #print(f"Contador: {count}")
             time.sleep(1)  # Pausa de 1 segundo para incrementar el contador
@@ -150,7 +148,6 @@ def get_router_for_host(host_id):
             return router_id
     return None
 
-
 def get_shortest_path(src_router_id, dest_router_id):
     """
     Recupera la ruta más corta entre dos routers usando el archivo shortest_paths.json.
@@ -161,6 +158,17 @@ def get_shortest_path(src_router_id, dest_router_id):
         return paths[src_router_id][dest_router_id]
     return None
 
+def get_dest_host_port(dest_host_id):
+    """
+    Busca el puerto del host destino usando el dest_host_id.
+    """
+    with open(routers_info_file, 'r') as f:
+        routers_info = json.load(f)
+    for router_data in routers_info.values():
+        hosts = router_data.get("hosts", {})
+        if str(dest_host_id) in hosts:
+            return hosts[str(dest_host_id)].get("src_host_port")
+    return None
 
 while True:
     client_socket, addr = server_socket.accept()
@@ -181,21 +189,34 @@ while True:
             dest_host_id = str(router_info['message'].get('dest_host_id'))  # Leer ID del host destino
 
             if dest_host_id:
-                # Buscar el router asociado al host destino
-                dest_router_id = get_router_for_host(dest_host_id)
+                # Buscar el puerto del host destino
+                dest_host_port = get_dest_host_port(dest_host_id)
 
-                if dest_router_id:
-                    # Obtener la ruta más corta
-                    path_info = get_shortest_path(src_router_id, dest_router_id)
+                if dest_host_port:
+                    # Añadir dest_host_port al mensaje
+                    router_info['message']['dest_host_port'] = dest_host_port
 
-                    if path_info:
-                        response = json.dumps(path_info)
-                        send_large_message(secure_socket, response)
+                    # Buscar el router asociado al host destino
+                    dest_router_id = get_router_for_host(dest_host_id)
+
+                    if dest_router_id:
+                        # Obtener la ruta más corta
+                        path_info = get_shortest_path(src_router_id, dest_router_id)
+
+                        if path_info:
+                            # Asegurarse de incluir la clave 'message' en la respuesta
+                            path_info['message'] = router_info['message']
+
+                            response = json.dumps(path_info)
+                            send_large_message(secure_socket, response)
+                        else:
+                            error_msg = {"error": "Ruta no encontrada entre routers"}
+                            send_large_message(secure_socket, json.dumps(error_msg))
                     else:
-                        error_msg = {"error": "Ruta no encontrada entre routers"}
+                        error_msg = {"error": "Router destino para el host no encontrado"}
                         send_large_message(secure_socket, json.dumps(error_msg))
                 else:
-                    error_msg = {"error": "Router destino para el host no encontrado"}
+                    error_msg = {"error": "Puerto del host destino no encontrado"}
                     send_large_message(secure_socket, json.dumps(error_msg))
             else:
                 error_msg = {"error": "Host destino no especificado en el mensaje"}
